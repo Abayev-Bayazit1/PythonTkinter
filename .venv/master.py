@@ -1,6 +1,6 @@
 import tkinter
 from tkinter import *
-from tkinter import Toplevel
+from tkinter import Toplevel,messagebox
 from database import Database
 
 
@@ -33,6 +33,7 @@ class System():
         password_entry = Entry(new_window)
         password_entry.pack(pady=10)
 
+
         log_in = Button(new_window, text="Log in")
         log_in.place(x=200,y=250,anchor=CENTER)
 
@@ -56,10 +57,25 @@ class System():
         entry_password = Entry(new_window)
         entry_password.pack(pady=10)
 
-        register = Button(new_window, text="Register")
+        def register_user():
+            username = entry_username.get()
+            password = entry_password.get()
+
+            if not username or not password:
+                messagebox.showerror("Error", "Please enter both username and password")
+                return
+
+            success = self.db.add_user(username, password)
+
+            if success:
+                messagebox.showinfo("Success", "User registered successfully")
+                new_window.destroy()
+            else:
+                messagebox.showerror("Error", "Failed to register")
+
+
+        register = Button(new_window, text="Register",command=register_user)
         register.place(x=200,y=250,anchor=CENTER)
-
-
 
 
 

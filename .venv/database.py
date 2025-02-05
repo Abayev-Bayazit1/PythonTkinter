@@ -9,3 +9,17 @@ class Database:
                                      port = "5432"
                                      )
         self.cursor = self.conn.cursor()
+
+
+    def add_user(self, username, password):
+
+        try:
+            self.cursor.execute("""INSERT INTO users (username, password) VALUES (%s, %s)""", (username, password))
+            self.conn.commit()
+
+            return True
+        except psycopg2.IntegrityError:
+            self.conn.rollback()
+
+            return False
+
