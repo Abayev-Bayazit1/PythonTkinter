@@ -1,8 +1,15 @@
 import tkinter
 from tkinter import *
 from tkinter import Toplevel
+from database import Database
+
 
 class System():
+    def __init__(self,db):
+        self.db = db
+
+
+
     def login(self):
         #новое окно
         new_window = Toplevel()
@@ -49,7 +56,7 @@ class System():
         entry_password = Entry(new_window)
         entry_password.pack(pady=10)
 
-        register = Button(new_window, text="register")
+        register = Button(new_window, text="Register")
         register.place(x=200,y=250,anchor=CENTER)
 
 
@@ -63,8 +70,8 @@ class System():
 
 
 def main():
-
-    sys = System()
+    db = Database()
+    sys = System(db)
 
     #cоздание окна
     window = Tk()
