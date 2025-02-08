@@ -23,3 +23,9 @@ class Database:
 
             return False
 
+
+    def login(self, username, password):
+        self.cursor.execute("SELECT username, password FROM users WHERE username = %s AND password =%s",(username,password))
+        user = self.cursor.fetchone()
+        return user is not None
+
