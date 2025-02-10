@@ -29,3 +29,14 @@ class Database:
         user = self.cursor.fetchone()
         return user is not None
 
+
+    def update_password(self, username, password):
+        try:
+            self.cursor.execute("UPDATE users SET password = %s WHERE username = %s", (password, username))
+            self.conn.commit()
+
+            return True
+        except psycopg2.IntegrityError:
+            self.conn.rollback()
+
+            return False

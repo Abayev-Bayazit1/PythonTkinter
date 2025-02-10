@@ -43,7 +43,7 @@ class System:
             if self.db.login(username,password):
                 # messagebox.showinfo("Login", "Login Successful")
                 new_window.destroy()
-                self.mn.menu(username,password)
+                self.mn.login_menu(username,password)
             else:
                 messagebox.showerror("Error", "Login Failed")
 
