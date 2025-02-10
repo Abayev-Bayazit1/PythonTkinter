@@ -6,7 +6,7 @@ class Menu():
 
 
 
-    def menu(self,username,password):
+    def login_menu(self,username,password):
         if not username or not password:
             messagebox.showerror("Error", "Please enter both username and password")
             return
@@ -20,6 +20,7 @@ class Menu():
             new_window = Toplevel()
             new_window.title("Main menu")
             new_window.geometry("600x600")
+
 
 
 
