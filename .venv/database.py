@@ -40,3 +40,19 @@ class Database:
             self.conn.rollback()
 
             return False
+
+
+    def get_all_users(self):
+        try:
+            self.cursor.execute("SELECT username, password FROM users")
+
+            return  self.cursor.fetchall()
+        except  self.cursor.fetchall():
+            self.conn.rollback()
+            return []
+
+
+    def is_admin(self, username):
+        self.cursor.execute("SELECT is_admin FROM users WHERE username = %s", (username,))
+        result = self.cursor.fetchone()
+        return result and result[0]

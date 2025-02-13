@@ -19,11 +19,11 @@ class Menu():
             messagebox.showerror("Error", "Login Failed")
 
         else:
-            self.main_menu()
+            self.main_menu(username)
 
 
 
-    def main_menu(self):
+    def main_menu(self,username):
         new_window = Toplevel()
         new_window.title("Main menu")
         new_window.geometry("500x500")
@@ -39,9 +39,14 @@ class Menu():
             update_password = Button(setting_window,text="Update Password",command= lambda: self.passwordMenu(setting_window))
             update_password.pack(padx=5, pady=10)
 
+            if self.db.is_admin(username):
+                all_users = Button(setting_window, text="View all users", command= lambda: self.view_all_users(setting_window))
+                all_users.pack(padx=5, pady=15)
+
 
         setting = Button(new_window,text="Settings",command=setting)
         setting.pack(pady = 200)
+
 
 
 
@@ -87,3 +92,24 @@ class Menu():
         #кнопка чтобы дернуть нашу дочернуюю функцию
         update_button = Button(updater_menu, text="Update", command=update_password)
         update_button.pack(pady=10)
+
+
+    def view_all_users(self,setting_window):
+        setting_window.destroy()
+        all_user_window = Toplevel()
+
+        all_user_window.title("All Users")
+        all_user_window.geometry("400x400")
+
+        users = self.db.get_all_users()
+
+        if not users:
+            Label(all_user_window, text="No users found", font=("Arial", 12)).pack(pady=20)
+        else:
+            Label(all_user_window, text="User List", font=("Arial", 14, "bold")).pack(pady=10)
+
+            for user in users:
+                Label(all_user_window,text = user, font=("Arial", 14, "bold")).pack(pady=2)
+
+        Button(all_user_window, text="Close", command=all_user_window.destroy).pack(pady=10)
+

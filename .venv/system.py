@@ -46,6 +46,7 @@ class System:
                 self.mn.login_menu(username,password)
             else:
                 messagebox.showerror("Error", "Login Failed")
+                new_window.destroy()
 
 
         log_in = Button(new_window, text="Log in",command= attempt_login)
@@ -87,6 +88,7 @@ class System:
                 new_window.destroy()
             else:
                 messagebox.showerror("Error", "Failed to register")
+                new_window.destroy()
 
 
         register = Button(new_window, text="Register",command=register_user)
